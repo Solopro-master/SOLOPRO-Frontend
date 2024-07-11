@@ -1,0 +1,415 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: #040F15 !important;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+}
+
+nav {
+    background-color: #E1EBDC;
+}
+/* Custom CSS (style.css) */
+.navbar-brand img {
+  height: auto; /* Ensure the logo scales naturally */
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem; /* Adjust padding as necessary */
+}
+
+.navbar {
+  padding: 1rem 0; /* Adjust padding as necessary */
+}
+
+
+.nav-link {
+    padding-left: 3%;
+}
+
+.nav1 {
+    background-color: #040F15;
+    box-shadow: rgba(20, 18, 18, 0.189) 0px 7px 10px, rgba(30, 28, 28, 0.961) 0px 5px 5px;
+}
+
+.nav1 .navbar-nav .nav-item {
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav1 .navbar-nav .nav-item:hover,
+.nav1 .navbar-nav .nav-item:focus,
+.nav1 .navbar-nav .nav-item:active {
+    background-color: #343a40;
+    color: #ffc107;
+}
+
+.nav1 .navbar-nav .profile-link:hover,
+.nav1 .navbar-nav .profile-link:focus,
+.nav1 .navbar-nav .profile-link:active {
+    background-color: #343a40;
+    color: #ffc107;
+}
+
+.nav1 .navbar-nav .profile-link {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.main-section {
+    background: url('../images/bg1.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.title-text {
+    padding: 5%;
+}
+
+.title-text h1 {
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(135deg, #823D99, #CC2C5F);
+    font-size: clamp(30px, 6vw, 120px);
+}
+
+.title-text p {
+    color: white;
+    font-size: clamp(10px, 2vw, 25px);
+}
+
+.helpbtn {
+    background-color: #008A90;
+}
+
+.unleash-section {
+    background: url('../images/bg2.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.unleash-section h3 {
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(135deg, #548279, #815CCE);
+    font-size: clamp(20px, 4vw, 80px);
+}
+
+.unleash-section p {
+    color: white;
+    font-size: clamp(8px, 2vw, 20px);
+}
+
+.imapcttbn {
+    background-color: violet;
+    color: white;
+}
+
+.expedition-section {
+    background: url('../images/bg3.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.expedition-section h3 {
+    color: white;
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 50px);
+}
+
+.expedition-section p {
+    color: white;
+    font-size: clamp(8px, 2vw, 20px);
+}
+
+.expedition-section button {
+    background-color: violet;
+    color: white;
+}
+
+.environment-section {
+    background: url('../images/bg1.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.environment-section h3 {
+    color: white;
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 50px);
+}
+
+.environment-section p {
+    color: white;
+    font-size: clamp(8px, 2vw, 20px);
+}
+
+.team-section {
+    background: url('../images/bg2.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.team-section h3 {
+    color: white;
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 50px);
+}
+
+.team-section p {
+    color: white;
+    font-size: clamp(8px, 2vw, 20px);
+}
+
+.team-section button {
+    background-color: #008A90;
+    color: white;
+}
+
+.services-section {
+    background: url('../images/bg3.png') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+  }
+  
+  .service-item {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .service-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .service-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    color: #666;
+  }
+  
+  @media (max-width: 767px) {
+    .service-img,
+    .service-img-placeholder {
+      /* aspect-ratio: 16 / 9; */
+    }
+  }
+/* ... (keep existing styles) ... */
+
+/* Responsive typography adjustments */
+@media (max-width: 991px) {
+    .title-text h1 {
+      font-size: clamp(40px, 8vw, 80px);
+    }
+  
+    .title-text p {
+      font-size: clamp(16px, 3vw, 22px);
+    }
+  
+    .unleash-section h3 {
+      font-size: clamp(30px, 6vw, 60px);
+    }
+  
+    .unleash-section p {
+      font-size: clamp(14px, 2.5vw, 18px);
+    }
+  
+    .expedition-section h3,
+    .environment-section h3,
+    .team-section h3 {
+      font-size: clamp(28px, 5vw, 40px);
+    }
+  
+    .expedition-section p,
+    .environment-section p,
+    .team-section p {
+      font-size: clamp(14px, 2.5vw, 18px);
+    }
+  
+    .environment-section h4 {
+      font-size: clamp(20px, 4vw, 28px);
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .title-text h1 {
+      font-size: clamp(36px, 10vw, 60px);
+    }
+  
+    .title-text p {
+      font-size: clamp(14px, 4vw, 20px);
+    }
+  
+    .unleash-section h3 {
+      font-size: clamp(28px, 8vw, 50px);
+    }
+  
+    .unleash-section p {
+      font-size: clamp(12px, 3vw, 16px);
+    }
+  
+    .expedition-section h3,
+    .environment-section h3,
+    .team-section h3 {
+      font-size: clamp(24px, 6vw, 36px);
+    }
+  
+    .expedition-section p,
+    .environment-section p,
+    .team-section p {
+      font-size: clamp(12px, 3vw, 16px);
+    }
+  
+    .environment-section h4 {
+      font-size: clamp(18px, 5vw, 24px);
+    }
+  }
+  
+  /* Adjust button sizes for better visibility on smaller screens */
+  @media (max-width: 767px) {
+    .btn-lg {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+
+#mentor-nav {
+    background-color: #040F15 !important;
+}
+
+#mentor-nav span {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: normal;
+}
+
+#mentor-table {
+    border-collapse: separate;
+    border-spacing: 10px 0;
+    background-color: transparent !important;
+    font-style: normal;
+}
+
+#mentor-table td {
+    font-weight: 300;
+}
+
+#mentor-table th {
+    font-weight: 500;
+}
+
+#mentor-table td, #mentor-table th {
+    position: relative;
+    background-color: #102836 !important;
+    color: white !important;
+}
+
+.pagination, .pagination li, .pagination a {
+    background-color: transparent !important;
+    color: white;
+    border: none;
+}
+
+.pagination li:active, .pagination li:hover {
+    background-color: orangered;
+    box-shadow: none;
+    color: white !important;
+}
+
+.pagination .active-page .page-link {
+    background-color: orangered !important;
+    color: white !important;
+    border-color: orangered !important;
+}
+
+#pagebar {
+    background-color: #040F15 !important;
+}
+
+#mentorsPerPageSelect {
+    background-color: transparent !important;
+    border: none;
+    color: white;
+}
+
+#mentorsPerPageSelect option {
+    background-color: #000 !important;
+    color: white !important;
+    border: none;
+}
+
+.pagination-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.pagination {
+    white-space: nowrap;
+}
+
+.row-label {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .row-label {
+        font-size: 0.875rem;
+    }
+}
+
+
+/* Appointments.css */
+
+/* Change the dropdown color to match the page background color */
+.dropdown {
+  background-color: #343a40; /* or whatever your page background color is */
+  color: #fff;
+}
+
+/* Change placeholder color in the search input */
+.search-input::placeholder {
+  color: #fff; /* Change this to your desired placeholder color */
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* If you want to target labels within a specific class or section */
+.specific-section label,.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,.MuiBox-root label {
+  color: white !important;
+}
+
