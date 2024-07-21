@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Nav1 from '../nav1';
-import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
+import Navinvmen from '../navinme';
+import { FaSort, FaSortUp, FaSortDown, FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // or useNavigate if using React Router v6
 
 const UserList = () => {
     const [userList, setUserList] = useState([]);
@@ -12,6 +14,11 @@ const UserList = () => {
     const [searchField, setSearchField] = useState('name');
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
     const backend = process.env.REACT_APP_BACKEND;
+    const lstorage = localStorage.getItem('user');
+    const lstorageparse=JSON.parse(lstorage);
+  const urole=lstorageparse.value.role;
+  const isstudent= urole==='Student';
+     const navigate = useNavigate(); 
 
     useEffect(() => {
         axios.get(`${backend}/totaldata`)
@@ -74,9 +81,30 @@ const UserList = () => {
         setSearchField(event.target.value);
     };
 
+    const handleProfileNavigation = (userId, role) => {
+        if (isstudent){
+        if (role === 'Student') {
+            navigate(`/student/studentprofile/${userId}`);
+        } else {
+            role=role.toLowerCase();
+            navigate(`/student/${role}/${userId}`);
+        }}
+        else{
+            if (role === 'Student') {
+                navigate(`/mi/studentprofile/${userId}`);
+            } else {
+                role=role.toLowerCase();
+                navigate(`/mi/${role}/${userId}`);
+            }
+        }
+    };
+    
+        
+
     return (
         <div>
-            <Nav1 />
+            {isstudent?<Nav1/>:<Navinvmen/>}
+           
             <div className='p-1 mt-3'>
                 <div className="d-flex justify-content-center mb-3" style={{ color: 'white' }}>
                     <input
@@ -86,7 +114,6 @@ const UserList = () => {
                         placeholder="Search among all users"
                         value={searchTerm}
                         onChange={handleSearch}
-                        
                     />
                     <select className="form-select w-auto ms-2" value={searchField} style={{color:'white'}} onChange={handleSearchFieldChange}>
                         <option value="name" style={{color:'black'}}>Name</option>
@@ -101,14 +128,21 @@ const UserList = () => {
                                 <th scope="col" onClick={() => sortData('name')}>Name {getSortIcon('name')}</th>
                                 <th scope="col" onClick={() => sortData('email')}>Email {getSortIcon('email')}</th>
                                 <th scope="col" onClick={() => sortData('role')}>Role {getSortIcon('role')}</th>
+                                <th scope="col">Profile</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentUsers.map((user, idx) => (
-                                <tr key={idx}>
+                                <tr key={user._id}>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role}</td>
+                                    <td>
+                                        <FaUser
+                                            onClick={() => handleProfileNavigation(user._id,user.role)}
+                                            style={{ cursor: 'pointer', color: 'white' }}
+                                        />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -128,7 +162,7 @@ const UserList = () => {
             </div>
         </div>
     );
-}
+};
 
 const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage, handleItemsPerPageChange, indexOfFirstItem, indexOfLastItem }) => {
     const pageNumbers = [];
@@ -178,6 +212,6 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage, handleIte
             </div>
         </nav>
     );
-}
+};
 
 export default UserList;

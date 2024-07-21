@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button, ListGroup, Modal, Form } from 'react-bootstrap';
 import Nav1 from '../nav1';
+import Navinvmen from '../navinme';
 import '../../css/MentorProfile.css'; // Import CSS file
 
 const MentorProfile = () => {
@@ -12,8 +13,9 @@ const MentorProfile = () => {
   const lstorage = localStorage.getItem('user');
     const lstorageparse=JSON.parse(lstorage);
     
-    const sid=lstorageparse.value.uid;
-    console.log(sid);
+    const sid=lstorageparse.value.id;
+    const urole=lstorageparse.value.role;
+  const isstudent= urole==='Student';
   const [meetingDetails, setMeetingDetails] = useState({
     title: '',
     startDate: '',
@@ -22,7 +24,7 @@ const MentorProfile = () => {
     endTime: '',
     meetinglink:'',
     meetingStatus:'waiting',
-    studentid:'',
+    studentid:`${sid}`,
     mentorid:`${id}`,
     mentorname:'',
     studentname:''
@@ -37,11 +39,7 @@ const MentorProfile = () => {
       .then((res) => {
         setMentorProfile(res.data);
         console.log(mentorProfile);
-        setMeetingDetails({
-          ...meetingDetails,
-          studentid:`${sid}`,// Same here, use studentid as a string,
-          mentorname:mentorProfile.name
-        });
+       
       })
       .catch((error) => alert(error));
 
@@ -63,9 +61,15 @@ const MentorProfile = () => {
   };
 
   const handleFormSubmit = () => {
+    setMeetingDetails({
+      ...meetingDetails,
+      studentid:`${sid}`,// Same here, use studentid as a string,
+      mentorname:mentorProfile.name
+    });
     const data = {
       ...meetingDetails,
     };
+
     console.log(meetingDetails);
     axios.post(`${backend}/schedulemeeting`, {meetingDetails})
       .then((res) => {
@@ -78,7 +82,7 @@ const MentorProfile = () => {
 
   return (
     <>
-      <Nav1 />
+      {isstudent?<Nav1/>:<Navinvmen/>}
       <Container fluid className="main-body mt-lg-3">
         <Row className="justify-content-center">
           <Col lg={8} md={10}>
@@ -87,7 +91,7 @@ const MentorProfile = () => {
                 <Row>
                   <Col md={4} className="mb-4 mb-md-0 text-center">
                     <div className="mentor-avatar">
-                      <img src={mentorProfile.proofImage} alt="Mentor" className="rounded-circle" width="150" />
+                      <img src={mentorProfile.proofImage} alt="Mentor" className="rounded-circle inline-image" width="150" />
                     </div>
                     <div className="mt-3">
                       <h4>{mentorProfile.name || 'Unavailable'}</h4>

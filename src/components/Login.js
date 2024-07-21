@@ -4,13 +4,14 @@ import Button from "@mui/material/Button";
 import firebaseConfig from "./firebaseconfig";
 //import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
+
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import { Typography, TextField } from '@mui/material';
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import loginimage from "./login.png";
 import Navbarr from "./nav";
@@ -88,6 +89,7 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
+    
 
     try {
       const response = await axios.post(`${backend}/api/login`, {
@@ -121,7 +123,7 @@ export default function Login() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <>
-        {/* <Navbarr /> */}
+         <Navbarr /> 
         
 {/* <Navbar /> */}
         <Grid container component="main" sx={{ height: "100vh", backgroundColor: "#040F15" }}>

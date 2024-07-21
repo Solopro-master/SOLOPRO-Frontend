@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button, Form, ListGroup, Table } from 'react-bootstrap';
 import Nav1 from '../nav1';
+import Navinvmen from '../navinme';
 import '../../css/Studentprofile.css'; // Import CSS file
 
 const StudentProfile = () => {
@@ -12,7 +13,15 @@ const StudentProfile = () => {
   const [editedProfile, setEditedProfile] = useState({});
   const [scheduledAppointments, setscheduledAppointments] = useState([]);
   const backend = process.env.REACT_APP_BACKEND;
+  const lstorage = localStorage.getItem('user');
+    const lstorageparse=JSON.parse(lstorage);
+ 
 
+  const localStorageId = lstorageparse.value.uid;
+  const urole=lstorageparse.value.role;
+  const isstudent= urole==='Student';
+
+  const shshed=_id===localStorageId;
   useEffect(() => {
     axios
       .post(`${backend}/getstudent`, { _id: _id })
@@ -25,7 +34,7 @@ const StudentProfile = () => {
     axios
       .post(`${backend}/getmeetingstu`, { _id: _id })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setscheduledAppointments(res.data);
       })
       .catch((error) => alert(error));
@@ -45,19 +54,6 @@ const StudentProfile = () => {
     setEditedProfile({ ...editedProfile, [name]: value });
   };
 
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-
-  //   reader.onloadend = () => {
-  //     setEditedProfile({ ...editedProfile, profileImage: reader.result });
-  //   };
-
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -68,12 +64,12 @@ const StudentProfile = () => {
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-  
+
         const maxWidth = 500; // Max width for the image
         const maxHeight = 500; // Max height for the image
         let width = img.width;
         let height = img.height;
-  
+
         // Calculate the new dimensions
         if (width > height) {
           if (width > maxWidth) {
@@ -86,11 +82,11 @@ const StudentProfile = () => {
             height = maxHeight;
           }
         }
-  
+
         canvas.width = width;
         canvas.height = height;
         ctx.drawImage(img, 0, 0, width, height);
-  
+
         const resizedDataUrl = canvas.toDataURL('image/jpeg', 0.7); // Adjust the quality as needed
         setEditedProfile({ ...editedProfile, profileImage: resizedDataUrl });
       };
@@ -102,8 +98,6 @@ const StudentProfile = () => {
       console.error('Error reading file:', error);
     };
   };
-  
-
 
   const handleFormSubmit = () => {
     axios
@@ -118,7 +112,7 @@ const StudentProfile = () => {
 
   return (
     <>
-      <Nav1 />
+      {isstudent?<Nav1/>:<Navinvmen/>}
       <Container fluid className="main-body mt-lg-3">
         <Row className="justify-content-center">
           <Col lg={8} md={10}>
@@ -127,14 +121,14 @@ const StudentProfile = () => {
                 <Row>
                   <Col md={4} className="mb-4 mb-md-0 text-center">
                     <div className="student-avatar">
-                      <img src={studentProfile.profileImage} alt="Student" className="rounded-circle" width="150" />
+                      <img src={studentProfile.profileImage} alt="Student" className="rounded-circle inline-image" width="150"  />
                     </div>
                     <div className="mt-3">
                       <h4>{studentProfile.name || 'Unavailable'}</h4>
                       <p className="mb-1">{studentProfile.course || 'Unavailable'}</p>
                       <p className="font-size-sm">{studentProfile.collegeName || 'Unavailable'}</p>
-                      {!isEditing && (
-                        <Button variant="outline-primary " className="mt-2 stu-btn" onClick={handleEditClick}>
+                      {!isEditing && localStorageId === _id && (
+                        <Button variant="outline-primary" className="mt-2 stu-btn" onClick={handleEditClick}>
                           Edit Profile
                         </Button>
                       )}
@@ -291,7 +285,6 @@ const StudentProfile = () => {
                             ) : (
                               <a href={studentProfile.profileImage} target="_blank" rel="noopener noreferrer">
                                 <img src={studentProfile.profileImage} alt="College ID" style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                                
                               </a>
                             )}
                           </ListGroup.Item>
@@ -301,7 +294,7 @@ const StudentProfile = () => {
                     {isEditing && (
                       <Row className="mt-3">
                         <Col>
-                          <Button variant="secondary" className='stu-btn' onClick={handleCancelClick}>
+                          <Button variant="secondary" className="stu-btn" onClick={handleCancelClick}>
                             Cancel
                           </Button>
                           <Button variant="primary" className="ms-2 stu-btn" onClick={handleFormSubmit}>
@@ -316,59 +309,64 @@ const StudentProfile = () => {
             </Card>
           </Col>
         </Row>
-        <Row className="justify-content-center mt-4">
+        {shshed?<Row className="justify-content-center mt-4">
           <Col lg={10} md={12}>
             <h5 className="mb-3 text-light">Scheduled Appointments</h5>
             <div className="appointment-table-container">
-  <Table striped bordered hover className="appointment-table">
-    <thead style={{backgroundColor:"#102836"}}>
-      <tr>
-        <th>Meeting Title</th>
-        <th>Start Date</th>
-        <th>Start Time</th>
-        <th>End Date</th>
-        <th>End Time</th>
-        <th>Description</th>
-        <th>Mentor Name</th>
-        <th>Meeting Status</th>
-        <th>Meeting Link</th>
-      </tr>
-    </thead>
-    <tbody>
-      {scheduledAppointments.length > 0 ? (
-        scheduledAppointments.map((appointment, index) => (
-          <tr key={index}>
-            <td>{appointment.title}</td>
-            <td>{appointment.startDate}</td>
-            <td>{appointment.startTime}</td>
-            <td>{appointment.endDate}</td>
-            <td>{appointment.endTime}</td>
-            <td>{appointment.description}</td>
-            <td>{appointment.mentorname}</td>
-            <td style={{ backgroundColor: appointment.meetingStatus === 'approved' ? 'green' : appointment.meetingStatus === 'rejected' ? 'red' : appointment.meetingStatus === 'waiting' ? 'blue' : 'black', padding: '8px' }}>
-        {appointment.meetingStatus}
-    </td>
-            <td>
-              <a href={appointment.meetinglink} target="_blank" rel="noopener noreferrer">
-                {appointment.meetinglink}
-              </a>
-            </td>
-          </tr>
-        ))
-      ) : (
-        <tr>
-          <td colSpan="8" style={{ textAlign: 'center' }}>
-            No appointments scheduled
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </Table>
-</div>
-
+              <Table striped bordered hover className="appointment-table">
+                <thead style={{ backgroundColor: "#102836" }}>
+                  <tr>
+                    <th>Meeting Title</th>
+                    <th>Start Date</th>
+                    <th>Start Time</th>
+                    <th>End Date</th>
+                    <th>End Time</th>
+                    <th>Description</th>
+                    <th>Mentor Name</th>
+                    <th>Meeting Status</th>
+                    <th>Meeting Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {scheduledAppointments.length > 0 ? (
+                    scheduledAppointments.map((appointment, index) => (
+                      <tr key={index}>
+                        <td>{appointment.title}</td>
+                        <td>{appointment.startDate}</td>
+                        <td>{appointment.startTime}</td>
+                        <td>{appointment.endDate}</td>
+                        <td>{appointment.endTime}</td>
+                        <td>{appointment.description}</td>
+                        <td>{appointment.mentorname}</td>
+                        <td
+                          style={{
+                            backgroundColor: appointment.meetingStatus === 'approved' ? 'green' : appointment.meetingStatus === 'rejected' ? 'red' : appointment.meetingStatus === 'waiting' ? 'blue' : 'black',
+                            padding: '8px'
+                          }}
+                        >
+                          {appointment.meetingStatus}
+                        </td>
+                        <td>
+                          <a href={appointment.meetinglink} target="_blank" rel="noopener noreferrer">
+                            {appointment.meetinglink}
+                          </a>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8" style={{ textAlign: 'center' }}>
+                        No appointments scheduled
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </Table>
+            </div>
           </Col>
         </Row>
-      </Container>
+ :null}
+             </Container>
     </>
   );
 };
