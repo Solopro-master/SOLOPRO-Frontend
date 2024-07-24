@@ -45,6 +45,7 @@ function App() {
           {/* <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:type/:id" element={<BlogDetail />} />
           <Route path="/adminblog" element={<AdminBlog />} /> */}
+ <Route path="/adminblog" element={<AdminBlog />} /> 
 
           <Route element={<PrivateRoute allowedRoles={["Student"]} />}>
             <Route path="/student/*" element={<StudentsRoute />} />
