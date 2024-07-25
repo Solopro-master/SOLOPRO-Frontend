@@ -258,7 +258,7 @@ const SignupQuestions = () => {
     } else if (activeStep === 3) {
       // Validate user questions
       for (const question of userQuestions) {
-        if (question.required && !formData[question.questionName]) {
+         if (question.required && !formData[question.questionName] && question.inputType !== 'file') {
           isValid = false;
           alert(`Please answer the question: ${question.label}`);
           break;
