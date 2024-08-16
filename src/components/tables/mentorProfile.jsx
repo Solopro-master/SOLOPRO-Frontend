@@ -13,7 +13,7 @@ const MentorProfile = () => {
   const lstorage = localStorage.getItem('user');
     const lstorageparse=JSON.parse(lstorage);
     
-    const sid=lstorageparse.value.id;
+    const sid=lstorageparse.value.uid;
     const urole=lstorageparse.value.role;
   const isstudent= urole==='Student';
   const [meetingDetails, setMeetingDetails] = useState({
@@ -29,7 +29,7 @@ const MentorProfile = () => {
     mentorname:'',
     studentname:''
   });
-
+const [peru,setperu]=useState('')
   const backend = process.env.REACT_APP_BACKEND;
 
   useEffect(() => {
@@ -44,13 +44,20 @@ const MentorProfile = () => {
       .catch((error) => console.log(error));
 
       axios.post(`${backend}/student/getprofileimg`,{id:sid}).then((res)=>{
-        setMeetingDetails({...meetingDetails,studentname:res.data.name})
+       
     }).catch((err)=>console.log(err));
 
   }, [id]);
 
   const isAvailable = mentorProfile.availableToMentor === "true";
-  
+  useEffect(() => {
+    axios
+      .post(`${backend}/getstudent`, { _id: sid })
+      .then((res) => {
+        setperu(res.data.name)
+      })
+      .catch((error) => console.log(error));
+  });
   
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -64,12 +71,10 @@ const MentorProfile = () => {
     setMeetingDetails({
       ...meetingDetails,
       studentid:`${sid}`,// Same here, use studentid as a string,
-      mentorname:mentorProfile.name
+      mentorname:mentorProfile.name,
+      studentname:`${peru}`
     });
-    const data = {
-      ...meetingDetails,
-    };
-
+    console.log(peru);
     console.log(meetingDetails);
     axios.post(`${backend}/schedulemeeting`, {meetingDetails})
       .then((res) => {
