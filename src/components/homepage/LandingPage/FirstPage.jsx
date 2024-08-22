@@ -5,8 +5,8 @@ import './FirstPage.css';
 import image from '../images/image.svg';
 import Timeline from "./Timeline";
 import { motion, useScroll } from "framer-motion";
-// import navbarr
-import Navbar from "../LandingPage/Navbarbri"
+import Navbarr from "../../nav";
+// import Navbar from "../LandingPage/Navbarbri"
 
 import SparklesText from "./magicui/sparkle-text";
 import BoxReveal from './Box'
@@ -46,7 +46,7 @@ const FirstPage = () => {
     <div className="entirePage">
       <motion.div className="progress-bar" style={{ scaleX: scrollYProgress }} />
       <div className="ball"></div>
-      <Navbar />
+      <Navbarr />
       <div id="unleas" className="mx-auto text-center w-75 capablity">
         <img src={image} className="img-fluid" alt="logo" />
         <Scrambles text="Unleash Your Capability" />
