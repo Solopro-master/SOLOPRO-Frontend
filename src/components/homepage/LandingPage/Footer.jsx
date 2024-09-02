@@ -2,6 +2,8 @@ import { CiHeart } from "react-icons/ci";
 import { Row, Col, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom"; 
 import './FirstPage.css';
+  const currentYear = new Date().getFullYear(); // Fetches the current year
+
 
 function Footer() {
   return (
@@ -79,10 +81,10 @@ function Footer() {
         </Container>
       </section>
 
-      <div className="text-center p-4" >
-        © 2021 Copyright:
-        <Link className="text-reset fw-bold" to="https://solopro.co.in/">Solopro.co.in</Link>
-      </div>
+     <div className="text-center p-4">
+      © {currentYear} Copyright:
+      <Link className="text-reset fw-bold" to="https://solopro.co.in/">Solopro.co.in</Link>
+    </div>
     </footer>
   );
 }
