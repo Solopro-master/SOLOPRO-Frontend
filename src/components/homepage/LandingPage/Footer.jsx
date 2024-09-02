@@ -81,7 +81,7 @@ function Footer() {
 
       <div className="text-center p-4" >
         © 2021 Copyright:
-        <Link className="text-reset fw-bold" to="https://solopro.com/">Solopro.co.in</Link>
+        <Link className="text-reset fw-bold" to="https://solopro.co.in/">Solopro.co.in</Link>
       </div>
     </footer>
   );
