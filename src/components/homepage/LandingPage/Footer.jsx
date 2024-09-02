@@ -68,17 +68,20 @@ function Footer() {
             <Col md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Engage Us</h6>
               <p>
-                <i className="icon-home me-3" />New York, NY 10012, US
+                <i className="icon-home me-3" />Chennai,IN
               </p>
               <p>
                 <i className="icon-envelope me-3" />
                 soloprobusiness@gmail.com
               </p>
               <p>
-                <i className="icon-phone me-3" /> + 01 234 567 88
+                <i className="icon-phone me-3" /> +919962624692
               </p>
               <p>
-                <i className="icon-print me-3" /> + 01 234 567 89
+                <i className="icon-print me-3" /> +919444179755
+              </p>
+               <p>
+                <i className="icon-print me-3" /> +917338755175
               </p>
             </Col>
           </Row>
@@ -87,7 +90,7 @@ function Footer() {
 
       <div className="text-center p-4" >
         © 2021 Copyright:
-        <Link className="text-reset fw-bold" to="https://solopro.com/">Solopro.com</Link>
+        <Link className="text-reset fw-bold" to="https://solopro.com/">Solopro.co.in</Link>
       </div>
     </footer>
   );
