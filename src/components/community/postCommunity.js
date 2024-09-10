@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Nav1 from '../nav1';
 import Navinvmen from '../navinme';
 import { Box, TextField, Button, Typography, Snackbar, Alert, styled } from '@mui/material';
-import '../../css/postFrom.css'; // We'll use this for custom styles
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import for the back button icon
+import '../../css/postFrom.css'; // Keep this for custom styles
 
 const StyledForm = styled('form')({
     maxWidth: '600px',
@@ -13,6 +14,9 @@ const StyledForm = styled('form')({
     backgroundColor: '#1E2A38',
     borderRadius: '8px',
     boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+    '@media (max-width: 600px)': {
+        padding: '1rem',
+    },
 });
 
 const StyledTextField = styled(TextField)({
@@ -42,12 +46,12 @@ const PostForm = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
     const backend = process.env.REACT_APP_BACKEND;
-    
+
     const lstorage = localStorage.getItem('user');
     const lstorageparse = JSON.parse(lstorage);
     const urole = lstorageparse.value.role;
     const isstudent = urole === 'Student';
-    
+
     const handleFileChange = (e) => {
         const { files, name } = e.target;
         if (name === 'images') {
@@ -56,7 +60,9 @@ const PostForm = () => {
             setVideos(files);
         }
     };
+
     var now = new Date();
+
     const resizeImage = (file, maxWidth, maxHeight) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -110,9 +116,8 @@ const PostForm = () => {
         formData.append('content', content);
         formData.append('title', title);
         formData.append('shortDesc', shortDesc);
-        formData.append('Date',now);
+        formData.append('Date', now);
         console.log(token.value.uid);
-
 
         // Resize images before appending to formData
         for (let i = 0; i < images.length; i++) {
@@ -133,7 +138,7 @@ const PostForm = () => {
         setShortDesc('');
         setImages([]);
         setVideos([]);
-        
+
         // Show the success message
         setOpenSnackbar(true);
 
@@ -150,6 +155,15 @@ const PostForm = () => {
     return (
         <Box sx={{ backgroundColor: "#040F15", minHeight: "100vh", paddingTop: "2rem" }}>
             {isstudent ? <Nav1 /> : <Navinvmen />}
+            <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<ArrowBackIcon />}
+                onClick={() => navigate(-1)}
+                sx={{ marginBottom: '1rem', marginLeft: '1rem' }}
+            >
+                Back
+            </Button>
             <StyledForm onSubmit={submitPost}>
                 <Typography variant="h4" align="center" color="white" gutterBottom>
                     Create a Post
