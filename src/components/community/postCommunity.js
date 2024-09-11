@@ -153,95 +153,108 @@ const PostForm = () => {
     };
 
     return (
-        <Box sx={{ backgroundColor: "#040F15", minHeight: "100vh", paddingTop: "2rem" }}>
-            {isstudent ? <Nav1 /> : <Navinvmen />}
+    <Box sx={{ backgroundColor: "#040F15", minHeight: "100vh", paddingTop: "2rem" }}>
+        {isstudent ? <Nav1 /> : <Navinvmen />}
+        
+        {/* Wrap the button and title in a flexbox */}
+        <Box 
+            sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between', 
+                margin: '0 1rem 1rem 1rem' // Add some margin around the container
+            }}
+        >
             <Button
                 variant="contained"
                 color="secondary"
                 startIcon={<ArrowBackIcon />}
                 onClick={() => navigate(-1)}
-                sx={{ marginBottom: '1rem', marginLeft: '1rem' }}
+                sx={{ marginBottom: '1rem' }}
             >
                 Back
             </Button>
-            <StyledForm onSubmit={submitPost}>
-                <Typography variant="h4" align="center" color="white" gutterBottom>
-                    Create a Post
-                </Typography>
-                <div className="form-group">
-                    <StyledTextField
-                        fullWidth
-                        id="title"
-                        label="Title"
-                        variant="outlined"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        margin="normal"
-                    />
-                </div>
-                <div className="form-group">
-                    <StyledTextField
-                        fullWidth
-                        id="content"
-                        label="Content"
-                        variant="outlined"
-                        multiline
-                        rows={4}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        margin="normal"
-                    />
-                </div>
-                <div className="form-group">
-                    <StyledTextField
-                        fullWidth
-                        id="shortDesc"
-                        label="Short Description"
-                        variant="outlined"
-                        multiline
-                        rows={2}
-                        value={shortDesc}
-                        onChange={(e) => setShortDesc(e.target.value)}
-                        margin="normal"
-                    />
-                </div>
-                <div className="form-group">
-                    <input
-                        id="images"
-                        className="form-control-file"
-                        type="file"
-                        name="images"
-                        multiple
-                        onChange={handleFileChange}
-                        style={{ color: 'white', margin: '10px 0' }}
-                    />
-                </div>
-                <div className="form-group">
-                    <input
-                        id="videos"
-                        className="form-control-file"
-                        type="file"
-                        name="videos"
-                        multiple
-                        onChange={handleFileChange}
-                        style={{ color: 'white', margin: '10px 0' }}
-                    />
-                </div>
-                <Button variant="contained" color="primary" type="submit" fullWidth>
-                    Post
-                </Button>
-            </StyledForm>
-            <Snackbar
-                open={openSnackbar}
-                autoHideDuration={2000}
-                onClose={handleCloseSnackbar}
-            >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Post submitted successfully!
-                </Alert>
-            </Snackbar>
+            <Typography variant="h4" align="center" color="white" sx={{ flexGrow: 1 }}>
+                Create a Post
+            </Typography>
         </Box>
-    );
+
+        <StyledForm onSubmit={submitPost}>
+            <div className="form-group">
+                <StyledTextField
+                    fullWidth
+                    id="title"
+                    label="Title"
+                    variant="outlined"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    margin="normal"
+                />
+            </div>
+            <div className="form-group">
+                <StyledTextField
+                    fullWidth
+                    id="content"
+                    label="Content"
+                    variant="outlined"
+                    multiline
+                    rows={4}
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    margin="normal"
+                />
+            </div>
+            <div className="form-group">
+                <StyledTextField
+                    fullWidth
+                    id="shortDesc"
+                    label="Short Description"
+                    variant="outlined"
+                    multiline
+                    rows={2}
+                    value={shortDesc}
+                    onChange={(e) => setShortDesc(e.target.value)}
+                    margin="normal"
+                />
+            </div>
+            <div className="form-group">
+                <input
+                    id="images"
+                    className="form-control-file"
+                    type="file"
+                    name="images"
+                    multiple
+                    onChange={handleFileChange}
+                    style={{ color: 'white', margin: '10px 0' }}
+                />
+            </div>
+            <div className="form-group">
+                <input
+                    id="videos"
+                    className="form-control-file"
+                    type="file"
+                    name="videos"
+                    multiple
+                    onChange={handleFileChange}
+                    style={{ color: 'white', margin: '10px 0' }}
+                />
+            </div>
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+                Post
+            </Button>
+        </StyledForm>
+        <Snackbar
+            open={openSnackbar}
+            autoHideDuration={2000}
+            onClose={handleCloseSnackbar}
+        >
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                Post submitted successfully!
+            </Alert>
+        </Snackbar>
+    </Box>
+);
+
 };
 
 export default PostForm;
